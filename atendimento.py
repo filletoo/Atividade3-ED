@@ -1,4 +1,4 @@
-from fila_propriedade_array_2 import *
+from fila_prioridade_array import *
 
 fila_p = FilaPrioridadeArray()
 fila_n = FilaPrioridadeArray()
@@ -15,27 +15,20 @@ atendidos = 0
 atendidos_prioridade = 0
 while True:
     opcao = input(menu)
-
+    print()
     if opcao == '1':
         nome = input("Indique o nome da pessoa: ")
         
-        while True:
-            prioridade = input("Ela tem prioridade? (s/n)").lower()
-            if prioridade not in "sn":
-                print("Indique uma opção válida")
-            else:
-                if prioridade == 's': 
-                    prioridade = True
-                else: 
-                    prioridade = False
-                if prioridade:
-                    fila_p.enqueue(PessoaNaFila(nome))
-                else:
-                    fila_n.enqueue(PessoaNaFila(nome))
-                break
+        if "*" in nome:
+            prioridade = True
+        else:
+            prioridade = False
+                
+        if prioridade:
+            fila_p.enqueue(PessoaNaFila(nome))
+        else:
+            fila_n.enqueue(PessoaNaFila(nome))
             
-            
-
     if opcao == '2':  # Dequeue de acordo com a política 2 sem 1 com
         # Verifica se as duas filas estão vazias
         if fila_p.isEmpty() and fila_n.isEmpty():
@@ -66,8 +59,6 @@ while True:
                 print(f"Atendendo pessoa com prioridade: {fila_p.dequeue()}")
                 atendidos += 1
                 atendidos_prioridade += 1
-
-        
 
     if opcao == '3': 
         print("Pessoas com prioridade:")

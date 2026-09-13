@@ -1,79 +1,60 @@
+class PessoaNaFila:
+    def __init__(self, prioridade):
+        self.prioridade = prioridade
+    def __str__(self):
+        return self.prioridade
+
 class FilaPrioridadeArray:
     def __init__(self):
         #tamanhos
-        self.tam_normal = 10
-        self.tam_prio = 10
+        self.tam = 2
         #filas com e sem prioridade
-        self.fila_normal = ['']*self.tam_normal
-        self.fila_prio - ['']*self.tam_prio
+        self.fila = ['']*self.tam
         #indicadores
-        self.inicio = -1
+        self.inicio = 0
         self.fim = -1
-        self.i_prio = -1
-        self.f_prio = -1
+        self.quant = 0
+        
 
     #redimensionar o array
-    def resize(self, array, tam):
-        novo = ['']*tam
+    def redimensionar_fila(self):
+        nova_fila = ['']*self.tam
         j = 0
-        for i in range(len(array)):
-            if array[i] != '':
-                novo[j] = array[i]
+        for i in range(self.inicio, self.fim + 1):
+            if self.fila[i] != '':
+                nova_fila[j] = self.fila[i]
                 j += 1
-
-        return novo
+        self.fila = nova_fila
+        self.inicio = 0
+        self.fim = j - 1
     
-    def enqueue(self, item, prioridade = False):
-        #Item sem prioridade
-        if not prioridade:
-            #verificar se precisa redimensionar
-            if self.f_normal == self.tam_normal - 1:
-                self.tam_normal *= 2
-                self.fila_normal = self.resize(self.fila_normal, self.tam_normal)
-
-            self.fila_normal[self.f_normal + 1] = item
-            self.f_normal += 1
-
-        #Item com prioridade
-        elif prioridade:
-            #verificar se precisa redimensionar
-            if self.f_prio == self.tam_prio - 1:
-                self.tam_prio *= 2
-                self.fila_prio = self.resize(self.fila_prio, self.tam_prio)
-
-            self.fila_prio[self.f_prio + 1] = item
-            self.f_prio += 1
-
-    def dequeue(self, prioridade = True):
-        #se for pra pegar da fila de prioridade e tiver gente nela
-        if (prioridade or (not (self.i_normal < self.f_normal))) and self.i_prio < self.f_prio:
-            #verificar se precisa redimensionar
-            if self.f_prio - self.i_prio <= self.tam_prio//4:
-                self.tam_prio /= 2
-                self.fila_prio = self.resize(self.fila_prio, self.tam_prio)
-
-            #pegar 1 item e mover indicador de inicio
-            if self.i_prio < self.f_prio:
-                aux = self.fila_prio[self.i_prio + 1]
-                self.fila_prio[self.i_prio + 1] = ''
-                self.i_prio += 1
-            return aux
-
-        #pegar da fila normal se tiver gente nela
-        elif self.i_normal < self.f_normal:
-            #verificar se precisa redimensionar
-            if self.f_normal - self.i_normal <= self.tam_normal//4:
-                self.tam_normal /= 2
-                self.fila_normal = self.resize(self.fila_normal, self.tam_normal)
-
-            atender = ['']*2
-            for i in range(2):
-            #pegar item e mover indicador de inicio
-                if self.i_normal < self.f_normal:
-                    aux = self.fila_normal[self.i_normal + 1]
-                    self.fila_normal[self.i_normal + 1] = ''
-                    self.i_normal += 1
-                    atender[i] = aux
-            return atender
-
-        return None
+    def enqueue(self, pessoa):
+        #ver se precisa redimensionar
+        if self.quant == self.tam:
+            self.tam *= 2
+            self.redimensionar_fila()
+        self.fila[self.fim + 1] = pessoa
+        self.fim += 1
+        self.quant += 1
+        return pessoa
+    
+    def dequeue(self):
+        if self.isEmpty():
+            raise IndexError("A fila está vazia")
+        retorno = self.fila[self.inicio]
+        self.fila[self.inicio] = ''
+        self.inicio += 1
+        self.quant -= 1
+        # Redimensionar depois da remoção
+        if self.quant <= self.tam // 4 and self.tam > 2:
+            self.tam //= 2
+            self.redimensionar_fila()
+        return retorno
+    
+    def isEmpty(self):
+        return self.quant == 0
+    
+    def PrintLista(self): 
+        for i in range(self.inicio, self.fim + 1):
+            if self.fila[i] != '':
+                print(self.fila[i])

@@ -20,7 +20,7 @@ while True:
         if aux != None:
             frente.push(url_atual)
             url_atual = aux
-            print(url_atual)
+            print(f"URL atual: {url_atual}")
         else: 
             print("Não há mais páginas para voltar no histórico")
 
@@ -29,22 +29,24 @@ while True:
         if aux != None:
             atras.push(url_atual)
             url_atual = aux
-            print(url_atual)
+            print(f"URL atual: {url_atual}")
             
         else:
             print("Não há páginas para avançar")
 
     elif opcao == '3':
         atras.push(url_atual)
-        aux = frente.pop()
+        aux = frente.top
         while aux != None:
-            atras.push(aux)
             aux = frente.pop()
+
         url_atual = input("Nova URL:\n")
 
     elif opcao == '4':
-        print(url_atual)
+        print(f"URL atual: {url_atual}")
 
     elif opcao == '5':
         break
-    
+
+    else:
+        print("Escolha uma opção válida")
