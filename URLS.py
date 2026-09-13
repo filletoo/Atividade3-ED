@@ -15,6 +15,7 @@ url_atual = "google.com"
 
 while True:
     opcao = input(menu)
+    print()
     if opcao == '1':
         aux = atras.pop()
         if aux != None:
