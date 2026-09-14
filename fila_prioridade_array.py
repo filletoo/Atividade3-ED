@@ -1,8 +1,8 @@
 class PessoaNaFila:
-    def __init__(self, prioridade):
-        self.prioridade = prioridade
+    def __init__(self, nome):
+        self.nome = nome
     def __str__(self):
-        return self.prioridade
+        return self.nome
 
 class FilaPrioridadeArray:
     def __init__(self):
