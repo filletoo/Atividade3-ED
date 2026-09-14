@@ -4,13 +4,13 @@ class PessoaNaFila:
     def __str__(self):
         return self.nome
 
-class FilaPrioridadeArray:
+class FilaArray:
     def __init__(self):
         #tamanhos
         self.tam = 2
         #filas com e sem prioridade
         self.fila = ['']*self.tam
-        #indicadores
+        #indicadores Al 
         self.inicio = 0
         self.fim = -1
         self.quant = 0

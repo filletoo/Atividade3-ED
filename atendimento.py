@@ -1,7 +1,7 @@
 from fila_prioridade_array import *
 
-fila_p = FilaPrioridadeArray()
-fila_n = FilaPrioridadeArray()
+fila_p = FilaArray()
+fila_n = FilaArray()
 menu = '''-------------------------
 1. Chegada de pessoa para atendimento
 2. Realizar atendimento
@@ -12,7 +12,7 @@ Opção: '''
 
 atender_prioridade = False
 atendidos = 0
-atendidos_prioridade = 0
+atendidos_prioridade = 0 
 while True:
     opcao = input(menu)
     print()
@@ -65,6 +65,7 @@ while True:
         fila_p.PrintLista()
         print("Pessoas sem prioridade:")
         fila_n.PrintLista()
+
     if opcao == '4':
         if fila_p.isEmpty() and fila_n.isEmpty():
             print (f"Total de pessoas atendidas: {atendidos}")
